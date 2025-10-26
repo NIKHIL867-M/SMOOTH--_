@@ -1,0 +1,89 @@
+{
+  "manifest_version": 3,
+  "name": "SafeSurf India",
+  "description": "Proactively protects Indian users from unsafe, phishing, and malware websites. Powered by predictive graph analytics, real-time site reputation, and download scanning.",
+  "version": "1.3",
+  "minimum_chrome_version": "109",
+
+  "icons": {
+    "16": "icons/icon16.webp",
+    "48": "icons/icon48.webp",
+    "128": "icons/icon128.webp"
+  },
+
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.webp",
+      "48": "icons/icon48.webp",
+      "128": "icons/icon128.webp"
+    },
+    "default_title": "SafeSurf India"
+  },
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "downloads",
+    "notifications",
+    "contextMenus"
+  ],
+
+  "optional_permissions": ["tabs", "alarms"],
+
+  "host_permissions": ["https://*/*", "http://*/*"],
+
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content.js"],
+      "css": ["styles/popup.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "commands": {
+    "toggle-safe-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Toggle SafeSurf protection on/off"
+    },
+    "check_current_site": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Analyze the current website for security risks"
+    }
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*.webp",
+        "styles/popup.css"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+
+  "options_page": "options.html",
+
+  "theme_color": "#355c7d",
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+
+  "homepage_url": "https://safesurf.in",
+
+  "offline_enabled": true
+}

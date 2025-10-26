@@ -1,0 +1,66 @@
+body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+            margin: 0;
+            padding: 20px;
+            min-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #ffffffcc;
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 280px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #355c7d;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        #siteStatus {
+            font-size: 1.05em;
+            color: #444;
+            background: #f3f6f9;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #355c7d, #6c5b7b);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(53, 92, 125, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #2a4261, #5a4866);
+            box-shadow: 0 6px 14px rgba(53, 92, 125, 0.4);
+            transform: scale(1.03);
+        }

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>SafeSurf India Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../static/dashboard.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.24.0/cytoscape.min.js"></script>
+    <script src="../static/dashboard.js" defer></script>
+    <style>
+   /* === SafeSurf India - Elite Modern UI 2025 === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #1a202c;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* --- Header Section --- */
+header {
+  background: linear-gradient(90deg, #5f72ff 0%, #9921e8 100%);
+  color: #fff;
+  padding: 2.5em 0 1.5em;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+h1 {
+  font-size: 2.8em;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  margin-bottom: 0.3em;
+}
+
+header p {
+  font-size: 1.1em;
+  font-weight: 400;
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+}
+
+h2, h3 {
+  font-weight: 700;
+  margin: 18px 0 10px;
+  color: #2d3748;
+}
+
+/* --- Main Content --- */
+main {
+  width: 96%;
+  max-width: 1200px;
+  margin: 2.5em auto;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  box-shadow: 0 12px 48px rgba(102, 126, 234, 0.2);
+  padding: 2.5em 2.5em;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  animation: slideUp 0.7s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section {
+  margin-bottom: 2.5em;
+  padding: 1.5em;
+  background: rgba(248, 250, 255, 0.6);
+  border-radius: 16px;
+  border: 1px solid rgba(159, 173, 255, 0.2);
+}
+
+/* --- Risk Table --- */
+#riskTable {
+  width: 100%;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+  background: #ffffff;
+}
+
+#riskTable th, #riskTable td {
+  padding: 1.2em 1.4em;
+  text-align: left;
+}
+
+#riskTable th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.05em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#riskTable tr {
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+#riskTable tr:nth-child(even) {
+  background: rgba(237, 242, 254, 0.5);
+}
+
+#riskTable tr:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.01);
+  cursor: pointer;
+}
+
+#riskTable td {
+  font-size: 1em;
+  color: #2d3748;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+/* Action Buttons in Table */
+.action-btn {
+  padding: 6px 14px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: #fff;
+}
+
+.view-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
+}
+
+.report-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+}
+
+.report-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.trust-btn {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+  color: #fff;
+}
+
+.trust-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);
+}
+
+/* --- Phishing Section --- */
+#phishing textarea {
+  width: 100%;
+  min-height: 90px;
+  font-size: 1em;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #cbd5e0;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+#phishing textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+  background: #ffffff;
+}
+
+#phishing button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 1.05em;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 14px;
+  margin-right: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.3);
+}
+
+#phishing button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.45);
+}
+
+#phishing button:active {
+  transform: translateY(-1px);
+}
+
+#phishingResult {
+  margin-top: 18px;
+  padding: 16px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 2px solid #e2e8f0;
+}
+
+/* --- Graph Section --- */
+#cy-graph {
+  width: 100%;
+  height: 420px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border: 2px solid #cbd5e0;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.15);
+  transition: all 0.3s ease;
+}
+
+#cy-graph:hover {
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.25);
+  transform: scale(1.01);
+}
+
+/* --- Refresh Button --- */
+#refreshDataBtn {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1em;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(67, 233, 123, 0.3);
+}
+
+#refreshDataBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(67, 233, 123, 0.45);
+}
+
+/* --- Footer --- */
+footer {
+  text-align: center;
+  padding: 1.5em;
+  margin-top: 50px;
+  width: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  letter-spacing: 1px;
+  box-shadow: 0 -6px 24px rgba(102, 126, 234, 0.2);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 768px) {
+  main {
+    padding: 2em 1.5em;
+  }
+
+  h1 {
+    font-size: 2.2em;
+  }
+
+  #cy-graph {
+    height: 300px;
+  }
+
+  .action-btn {
+    padding: 5px 10px;
+    font-size: 0.85em;
+  }
+}
+
+/* --- Ripple Animation --- */
+@keyframes ripple-expand {
+  from { transform: scale(0); opacity: 0.6; }
+  to { transform: scale(3); opacity: 0; }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header with brand & subtitle -->
+    <header class="dashboard-header">
+        <div class="header-left">
+            <img src="../static/icons/icon128.png" alt="SafeSurf Logo" class="logo" />
+            <div>
+                <h1>SafeSurf India</h1>
+                <h2>Real-Time Web Risk Analytics</h2>
+            </div>
+        </div>
+        <div class="header-right">
+            <button id="refreshDataBtn" title="Refresh Feeds &amp; Graph">🔄 Refresh</button>
+        </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="dashboard-main">
+        <!-- Top Risk Domains Table -->
+        <section id="hotspots" class="card">
+            <h3>🚩 Top Risk Domains</h3>
+            <table id="riskTable" aria-label="Top Risk Domains Table">
+                <thead>
+                    <tr>
+                        <th scope="col">Domain</th>
+                        <th scope="col">Risk</th>
+                        <th scope="col">Reports</th>
+                        <th scope="col">Visits</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Populated by JS -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Threat Network Graph -->
+        <section id="cytoscape-graph-section" class="card">
+            <h3>⚡ Threat Network <span style="font-size:0.9em;color:#7a4bde">(Animated Graph)</span></h3>
+            <div id="cy-graph" aria-label="Threat Network Graph" role="region" tabindex="0"></div>
+            <p class="graph-info">Hover nodes for details. Click to view risk info.</p>
+        </section>
+
+        <!-- Phishing Email Detector -->
+        <section id="phishing" class="card">
+            <h3>📧 Phishing Email Detector</h3>
+            <textarea id="emailText" placeholder="Paste email text here" aria-label="Paste email text for phishing check"></textarea>
+            <div class="btn-row">
+                <button id="checkEmailBtn" aria-describedby="phishingResult">Check for Phishing</button>
+                <button id="clearEmailBtn">Clear</button>
+            </div>
+            <div id="phishingResult" class="result-box" role="alert" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+        <span>SafeSurf India &copy; 2025 | Designed for proactive web safety</span>
+    </footer>
+</body>
+</html>
